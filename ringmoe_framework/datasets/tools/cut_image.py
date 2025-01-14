@@ -39,7 +39,7 @@ class CutImage:
 
     def __getitem__(self, index):
         img = Image.open(self.img_path[index])
-        w, h = 448, 488
+        w, h = 192, 192
         global image_ids
         image_ids += int(img.size[0] / w) * int(img.size[1] / h) * 4
         cur_img_name = self.img_path[index].split('/')[-1]
