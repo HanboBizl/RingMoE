@@ -4,11 +4,12 @@
 - Mindspore 2.1.0
 - Python 3.7
 - CANN 6.3.RC2
+- gdal
 - Ascend: Ascend910b Cluster
 ### 2. Datasets
 - RingMOSS: https://github.com/HanboBizl/RingMoEDatasets
 - Prepare data according to `.ringmoe_framework/datasets/pretrain_dataset.py`
-- During pre-training, the data was cropped to a size of 192×192. For detailed operations, please refer to `.ringmoe_framework/datasets/tools/cut_image.py`.
+- During pre-training, the data was cropped to a size of 192×192. For detailed operations, please refer to `.ringmoe_framework/datasets/image_cuts/`.
 
 Notably, the data has been converted into the MindRecord format to accelerate data loading.
 If needed, you can refer to the official MindSpore documentation for instructions on converting custom datasets into the [MindRecord](https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/mindspore.mindrecord.html) format.
