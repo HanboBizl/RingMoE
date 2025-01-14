@@ -31,4 +31,4 @@ For details, please refer to the official documentation at [rank table](https://
 ### 5. Change detection
 - The experiments are performed in the [Bidirectional Integration Transformer (BIT) framework](https://github.com/justchenhao/BIT_CD).
 ### 6. Depth estimation
-- The experiments are performed in the [Binsformer framework](hhttps://github.com/zhyever/Monocular-Depth-Estimation-Toolbox).
+- The experiments are performed in the [Binsformer framework](https://github.com/zhyever/Monocular-Depth-Estimation-Toolbox).
