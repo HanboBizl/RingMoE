@@ -1,0 +1,111 @@
+base_config: [
+    '../base/context/semi_moe_32_1_mode_4nodes.yaml',
+    '../base/datasets/pretrain_dataset.yaml',
+    '../base/models/simmim_swinv2_giant_p4_w12.yaml',
+    '../base/schedules/default_schedule.yaml',
+    '../base/runner/runner.yaml',
+    '../base/modelarts/aicc.yaml',
+    '../base/__base__.yaml' ]
+
+arch: "simmim_moe"
+seed: 2022
+use_parallel: True
+profile: False
+auto_tune: True  # dataset performance
+filepath_prefix: "./autotune"
+autotune_per_step: 10
+
+context:
+  mode: 0 #0--Graph Mode; 1--Pynative Mode
+
+parallel:
+  parallel_mode: 1 # 0-data, 1-semi, 2-auto, 3-hybrid
+  strategy_ckpt_load_file: ""
+  full_batch: True  # semi
+  gradients_mean: True  #
+  enable_parallel_optimizer: True  #
+  optimizer_weight_shard_size: -1 # defaule dp: -1
+
+recompute_config: # recompute
+  recompute: True  #  default True
+  parallel_optimizer_comm_recompute: True
+
+parallel_config:
+  data_parallel: 32
+  model_parallel: 8
+  expert_parallel: 4
+  pipeline_stage: 1
+  micro_batch_num: 1
+  optimizer_shard: True  #优化并行
+
+
+# context config for transformer
+moe_config:
+  expert_num: 8  #    examples: 32
+  specific_expert_num: 4
+  public_expert_num: 1
+  cross_expert_num: 4
+
+  capacity_factor: 1.2
+  aux_loss_factor: 0.001  # moe loss
+  num_experts_chosen: 1  # token choose experts num
+
+pretrain_dataset:
+  data_type: "MindRecord"
+
+  modal_type: "multi_modal"
+  modal_data_paths: '/home/ma-user/modelarts/inputs/'
+
+  data_scale_min: 0.2  # 448 to 96-224
+  data_scale_max: 0.5  # 448 to 96-224
+
+  data_path: ""
+  image_ids: ""
+
+  input_columns: [ "data" ]
+  output_columns: [ "image", "mask" ]
+  column_order: [ "image", "mask" ]
+  num_workers: 8
+
+model:
+  modal_num: 4
+
+train_config:
+  epoch: 20
+  batch_size: 1 # 1
+  image_size: 192
+  per_epoch_size: 0
+  callback_step: 200 #callback fre
+
+callback:
+  # ckpt callback
+  ckpt_config:
+    save_checkpoint_steps: 2000
+    save_ckpt_epochs: 1
+    keep_checkpoint_max: 1
+    integrated_save: False
+    async_save: True
+    prefix: "simmim-swinv2-giant-moe-mm-15B"
+    obs_local_path: "/home/ma-user/modelarts/outputs/modelArts_output_0/" # only obs use
+
+# optimizer
+optimizer:
+  optim_name: "AdamW"
+  beta1: 0.9
+  beta2: 0.999
+  eps: 0.00000001 # 1e-8
+  weight_decay: 0.05
+
+# lr sechdule
+lr_schedule:
+  lr_type: "warmup_cosine_decay_simmim"
+  base_lr: 0.00025
+  min_lr: 0.0000005
+  warmup_lr: 0.000001
+  warmup_steps: 200
+
+
+aicc_config:
+  obs_path: "obs://aircas/bhb/output/RingMoE_15b_moe_mm"
+  upload_frequence: 1
+  keep_last: False

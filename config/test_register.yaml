@@ -1,0 +1,7 @@
+pretrain_dataset:
+  mask_policy:
+    type: MaskPolicyForSim
+    input_size: 192
+    mask_patch_size: 32
+    model_patch_size: 4
+    mask_ratio: 0.6
