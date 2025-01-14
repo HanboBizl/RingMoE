@@ -25,9 +25,10 @@ For details, please refer to the official documentation at [rank table](https://
 ### 2. Semantic segmentation
 - The experiments are performed in the [mmsegmentation framework](https://github.com/open-mmlab/mmsegmentation).
 ### 3. Object detection
-- The experiments are performed in the [mmdetection framework](https://github.com/open-mmlab/mmdetection).
+- For horizontal object detection, the experiments are performed in the [mmdetection framework](https://github.com/open-mmlab/mmdetection).
+- For rotated object detection, the experiments are performed in the [mmrotate framework](https://github.com/open-mmlab/mmrotate).
 ### 4. Object tracking
-- All object tracking tasks utilize the [mmsegmentation framework](https://github.com/open-mmlab/mmsegmentation), with [ByteTrack](https://github.com/ifzhang/ByteTrack) as the tracking algorithm.
+- All object tracking tasks utilize the [mmdetection framework](https://github.com/open-mmlab/mmdetection), with [ByteTrack](https://github.com/ifzhang/ByteTrack) as the tracking algorithm.
 ### 5. Change detection
 - The experiments are performed in the [Bidirectional Integration Transformer (BIT) framework](https://github.com/justchenhao/BIT_CD).
 ### 6. Depth estimation
